@@ -8,7 +8,11 @@
 
 ## K3s 介绍
 
-[K3s - 轻量级 Kubernetes](https://docs.rancher.cn/docs/k3s/_index)
+[K3s - 轻量级 Kubernetes:](https://docs.rancher.cn/docs/k3s/_index)
+- CNCF认证的Kubernetes发行版
+- 支持 X86_64, ARM64, ARMv7平台
+- 单一进程包含Kubernetes master，kubelet，和 containerd
+
 
 **生命周期:** K3s 会同时支持 3 个 K8s 版本，支持的生命周期与 K8s 相同，参考: [Kubernetes 版本及版本偏差支持策略](https://kubernetes.io/zh/docs/setup/release/version-skew-policy/)
 
