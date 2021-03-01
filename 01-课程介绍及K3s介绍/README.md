@@ -30,11 +30,11 @@
 
 ## 周边项目
 
-- [k3os](https://github.com/rancher/k3os)
-- [k3d](https://github.com/rancher/k3d)
-- [autok3s](https://github.com/cnrancher/autok3s)
-- [octopus](https://github.com/cnrancher/octopus)
-- [harvester](https://github.com/rancher/harvester)
+- [k3os](https://github.com/rancher/k3os): k3OS是一个完全基于Kubernetes管理的轻量级操作系统，能大大简化在低资源环境中的Kubernetes操作，快速安装，秒级启动。
+- [k3d](https://github.com/rancher/k3d): k3d创建容器化的k3s集群。这意味着，您可以使用docker在单台计算机上启动多节点k3s集群。
+- [autok3s](https://github.com/cnrancher/autok3s): AutoK3s 是用于简化 K3s 集群管理的轻量级工具，您可以使用 AutoK3s 在任何地方运行 K3s，Run K3s Everywhere。
+- [octopus](https://github.com/cnrancher/octopus): Octopus是用于Kubernetes和k3s的轻量级云原生设备管理系统，它不需要替换Kubernetes集群的任何基本组件。部署octopus后，集群可以将边缘设备作为自定义k8s资源进行管理。
+- [harvester](https://github.com/rancher/harvester): Harvester是基于Kubernetes构建的开源超融合基础架构（HCI）软件。它是vSphere和Nutanix的开源替代方案。
 
 ## 遇到问题怎么办？
 
