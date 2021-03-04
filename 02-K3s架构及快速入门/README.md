@@ -20,12 +20,12 @@ K8s架构：
 **镜像加速：**
 
 ```
-sudo mkdir -p /etc/docker
-sudo tee /etc/docker/daemon.json <<-'EOF'
-{
-  "registry-mirrors": ["https://fogjl973.mirror.aliyuncs.com"]
-}
+cat >> /etc/rancher/k3s/registries.yaml <<EOF
+mirrors:
+  "docker.io":
+    endpoint:
+      - "https://fogjl973.mirror.aliyuncs.com"
+      - "https://registry-1.docker.io"
 EOF
-systemctl daemon-reload
-systemctl restart docker
+systemctl restart k3s
 ```
