@@ -217,3 +217,211 @@ K3s 的性能取决于数据库的性能。为了确保最佳速度，我们建�
     [INFO]  systemd: Enabling k3s unit
     [INFO]  systemd: Starting k3s
     ```
+
+- INSTALL_K3S_BIN_DIR -- 安装 K3s 二进制文件、链接和卸载脚本的目录，或者使用/usr/local/bin作为默认目录。
+    ```
+    root@k3s1:~# curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn \
+    >   INSTALL_K3S_BIN_DIR=/opt/bin \
+    >   sh -
+    [INFO]  Finding release for channel stable
+    [INFO]  Using v1.20.5+k3s1 as release
+    [INFO]  Downloading hash http://rancher-mirror.cnrancher.com/k3s/v1.20.5-k3s1/sha256sum-amd64.txt
+    [INFO]  Downloading binary http://rancher-mirror.cnrancher.com/k3s/v1.20.5-k3s1/k3s
+    [INFO]  Verifying binary download
+    [INFO]  Installing k3s to /opt/bin/k3s
+    [INFO]  Creating /opt/bin/kubectl symlink to k3s
+    [INFO]  Creating /opt/bin/crictl symlink to k3s
+    [INFO]  Creating /opt/bin/ctr symlink to k3s
+    [INFO]  Creating killall script /opt/bin/k3s-killall.sh
+    [INFO]  Creating uninstall script /opt/bin/k3s-uninstall.sh
+    [INFO]  env: Creating environment file /etc/systemd/system/k3s.service.env
+    [INFO]  systemd: Creating service file /etc/systemd/system/k3s.service
+    [INFO]  systemd: Enabling k3s unit
+    [INFO]  systemd: Starting k3s
+    root@k3s1:~# ls /opt/bin/
+    crictl            ctr               k3s               k3s-killall.sh    k3s-uninstall.sh  kubectl
+```
+
+- INSTALL_K3S_BIN_DIR_READ_ONLY -- 如果设置为 true 将不会把文件写入INSTALL_K3S_BIN_DIR，强制设置INSTALL_K3S_SKIP_DOWNLOAD=true。
+> `INSTALL_K3S_SKIP_DOWNLOAD`会创建kubectl/crictl/ctr等，而`INSTALL_K3S_BIN_DIR_READ_ONLY`不创建。
+    ```
+    root@k3s1:~# curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn \
+    >   INSTALL_K3S_BIN_DIR_READ_ONLY=true \
+    >   sh -
+    [INFO]  Skipping k3s download and verify
+    [ERROR]  Executable k3s binary not found at /usr/local/bin/k3s
+    root@k3s1:~# cp k3s /usr/local/bin/
+    root@k3s1:~# curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn \
+    >   INSTALL_K3S_BIN_DIR_READ_ONLY=true \
+    >   sh -
+    [INFO]  Skipping k3s download and verify
+    [INFO]  Skipping installation of SELinux RPM
+    [INFO]  env: Creating environment file /etc/systemd/system/k3s.service.env
+    [INFO]  systemd: Creating service file /etc/systemd/system/k3s.service
+    [INFO]  systemd: Enabling k3s unit
+    [INFO]  systemd: Starting k3s
+
+    root@k3s1:~# ls /usr/local/bin/
+    k3s
+```
+
+- INSTALL_K3S_SYSTEMD_DIR -- 安装 systemd 服务和环境文件的目录，或者使用/etc/systemd/system作为默认目录。
+    ```
+    root@k3s1:~# curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn \
+    >   INSTALL_K3S_SYSTEMD_DIR=/opt/systemd \
+    >   sh -
+    [INFO]  Finding release for channel stable
+    [INFO]  Using v1.20.5+k3s1 as release
+    [INFO]  Downloading hash http://rancher-mirror.cnrancher.com/k3s/v1.20.5-k3s1/sha256sum-amd64.txt
+    [INFO]  Downloading binary http://rancher-mirror.cnrancher.com/k3s/v1.20.5-k3s1/k3s
+    [INFO]  Verifying binary download
+    [INFO]  Installing k3s to /usr/local/bin/k3s
+    [INFO]  Creating /usr/local/bin/kubectl symlink to k3s
+    [INFO]  Creating /usr/local/bin/crictl symlink to k3s
+    [INFO]  Creating /usr/local/bin/ctr symlink to k3s
+    [INFO]  Creating killall script /usr/local/bin/k3s-killall.sh
+    [INFO]  Creating uninstall script /usr/local/bin/k3s-uninstall.sh
+    [INFO]  env: Creating environment file /opt/systemd/k3s.service.env
+    [INFO]  systemd: Creating service file /opt/systemd/k3s.service
+    [INFO]  systemd: Enabling k3s unit
+    [INFO]  systemd: Starting k3s
+    ```
+
+- INSTALL_K3S_EXEC -- 带有标志的命令，用于在服务中启动 K3s。如果未指定命令，并且设置了K3S_URL，它将默认为“agent”。如果未设置K3S_URL，它将默认为“server”。
+    ```
+    root@k3s1:~# curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn \
+    >   INSTALL_K3S_EXEC="--docker" \
+    >   sh -
+    [INFO]  Finding release for channel stable
+    [INFO]  Using v1.20.5+k3s1 as release
+    [INFO]  Downloading hash http://rancher-mirror.cnrancher.com/k3s/v1.20.5-k3s1/sha256sum-amd64.txt
+    [INFO]  Downloading binary http://rancher-mirror.cnrancher.com/k3s/v1.20.5-k3s1/k3s
+    [INFO]  Verifying binary download
+    [INFO]  Installing k3s to /usr/local/bin/k3s
+    [INFO]  Creating /usr/local/bin/kubectl symlink to k3s
+    [INFO]  Creating /usr/local/bin/crictl symlink to k3s
+    [INFO]  Skipping /usr/local/bin/ctr symlink to k3s, command exists in PATH at /usr/bin/ctr
+    [INFO]  Creating killall script /usr/local/bin/k3s-killall.sh
+    [INFO]  Creating uninstall script /usr/local/bin/k3s-uninstall.sh
+    [INFO]  env: Creating environment file /etc/systemd/system/k3s.service.env
+    [INFO]  systemd: Creating service file /etc/systemd/system/k3s.service
+    [INFO]  systemd: Enabling k3s unit
+    [INFO]  systemd: Starting k3s
+    ```
+
+- INSTALL_K3S_NAME -- 要创建的 systemd 服务名称，如果以服务器方式运行 k3s，则默认为'k3s'；如果以 agent 方式运行 k3s，则默认为'k3s-agent'。如果指定了服务名，则服务名将以'k3s-'为前缀。
+    ```
+    root@k3s1:~# curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn \
+    >   INSTALL_K3S_NAME="demo" \
+    >   sh -
+    [INFO]  Finding release for channel stable
+    [INFO]  Using v1.20.5+k3s1 as release
+    [INFO]  Downloading hash http://rancher-mirror.cnrancher.com/k3s/v1.20.5-k3s1/sha256sum-amd64.txt
+    [INFO]  Downloading binary http://rancher-mirror.cnrancher.com/k3s/v1.20.5-k3s1/k3s
+    [INFO]  Verifying binary download
+    [INFO]  Installing k3s to /usr/local/bin/k3s
+    [INFO]  Creating /usr/local/bin/kubectl symlink to k3s
+    [INFO]  Creating /usr/local/bin/crictl symlink to k3s
+    [INFO]  Skipping /usr/local/bin/ctr symlink to k3s, command exists in PATH at /usr/bin/ctr
+    [INFO]  Creating killall script /usr/local/bin/k3s-killall.sh
+    [INFO]  Creating uninstall script /usr/local/bin/k3s-demo-uninstall.sh
+    [INFO]  env: Creating environment file /etc/systemd/system/k3s-demo.service.env
+    [INFO]  systemd: Creating service file /etc/systemd/system/k3s-demo.service
+    [INFO]  systemd: Enabling k3s-demo unit
+    [INFO]  systemd: Starting k3s-demo
+    root@k3s1:~# systemctl status k3s-demo
+    ```
+
+- INSTALL_K3S_TYPE -- 要创建的 systemd 服务类型，默认为notify
+    ```
+    root@k3s1:~# curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn \
+    >   INSTALL_K3S_TYPE="exec" \
+    >   sh -
+    [INFO]  Finding release for channel stable
+    [INFO]  Using v1.20.5+k3s1 as release
+    [INFO]  Downloading hash http://rancher-mirror.cnrancher.com/k3s/v1.20.5-k3s1/sha256sum-amd64.txt
+    [INFO]  Downloading binary http://rancher-mirror.cnrancher.com/k3s/v1.20.5-k3s1/k3s
+    [INFO]  Verifying binary download
+    [INFO]  Installing k3s to /usr/local/bin/k3s
+    [INFO]  Creating /usr/local/bin/kubectl symlink to k3s
+    [INFO]  Creating /usr/local/bin/crictl symlink to k3s
+    [INFO]  Skipping /usr/local/bin/ctr symlink to k3s, command exists in PATH at /usr/bin/ctr
+    [INFO]  Creating killall script /usr/local/bin/k3s-killall.sh
+    [INFO]  Creating uninstall script /usr/local/bin/k3s-uninstall.sh
+    [INFO]  env: Creating environment file /etc/systemd/system/k3s.service.env
+    [INFO]  systemd: Creating service file /etc/systemd/system/k3s.service
+    [INFO]  systemd: Enabling k3s unit
+    [INFO]  systemd: Starting k3s
+
+    root@k3s1:~# cat /etc/systemd/system/k3s.service
+    [Unit]
+    Description=Lightweight Kubernetes
+    Documentation=https://k3s.io
+    Wants=network-online.target
+    After=network-online.target
+    [Install]
+    WantedBy=multi-user.target
+    [Service]
+    Type=exec
+    EnvironmentFile=/etc/systemd/system/k3s.service.env
+    KillMode=process
+    Delegate=yes
+    ```
+
+- INSTALL_K3S_SELINUX_WARN --
+
+- INSTALL_K3S_SKIP_SELINUX_RPM --
+
+- INSTALL_K3S_CHANNEL_URL -- 用于获取 K3s 下载网址的频道 URL。默认为 https://update.k3s.io/v1-release/channels 。
+
+- INSTALL_K3S_CHANNEL -- 用于获取 K3s 下载 URL 的通道。默认值为 "stable"。选项包括：`stable`, `latest`, `testing`。
+    ```
+    root@k3s1:~# curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn \
+    >   INSTALL_K3S_CHANNEL="latest" \
+    >   sh -
+    [INFO]  Finding release for channel latest
+    [INFO]  Using v1.20.5+k3s1 as release
+    [INFO]  Downloading hash http://rancher-mirror.cnrancher.com/k3s/v1.20.5-k3s1/sha256sum-amd64.txt
+    [INFO]  Downloading binary http://rancher-mirror.cnrancher.com/k3s/v1.20.5-k3s1/k3s
+    [INFO]  Verifying binary download
+    [INFO]  Installing k3s to /usr/local/bin/k3s
+    [INFO]  Creating /usr/local/bin/kubectl symlink to k3s
+    [INFO]  Creating /usr/local/bin/crictl symlink to k3s
+    [INFO]  Skipping /usr/local/bin/ctr symlink to k3s, command exists in PATH at /usr/bin/ctr
+    [INFO]  Creating killall script /usr/local/bin/k3s-killall.sh
+    [INFO]  Creating uninstall script /usr/local/bin/k3s-uninstall.sh
+    [INFO]  env: Creating environment file /etc/systemd/system/k3s.service.env
+    [INFO]  systemd: Creating service file /etc/systemd/system/k3s.service
+    [INFO]  systemd: Enabling k3s unit
+    [INFO]  systemd: Starting k3s
+    ```
+
+- K3S_CONFIG_FILE -- 指定配置文件的位置。默认目录为`/etc/rancher/k3s/config.yaml`。
+    ```
+    root@k3s1:/opt# cat /opt/config.yaml
+    node-label:
+    - "foo=bar"
+    - "something=amazing"
+
+    root@k3s1:/opt# curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn \
+    >   K3S_CONFIG_FILE=/opt/config.yaml \
+    >   sh -
+    [INFO]  Finding release for channel stable
+    [INFO]  Using v1.20.5+k3s1 as release
+    [INFO]  Downloading hash http://rancher-mirror.cnrancher.com/k3s/v1.20.5-k3s1/sha256sum-amd64.txt
+    [INFO]  Downloading binary http://rancher-mirror.cnrancher.com/k3s/v1.20.5-k3s1/k3s
+    [INFO]  Verifying binary download
+    [INFO]  Installing k3s to /usr/local/bin/k3s
+    [INFO]  Creating /usr/local/bin/kubectl symlink to k3s
+    [INFO]  Creating /usr/local/bin/crictl symlink to k3s
+    [INFO]  Skipping /usr/local/bin/ctr symlink to k3s, command exists in PATH at /usr/bin/ctr
+    [INFO]  Creating killall script /usr/local/bin/k3s-killall.sh
+    [INFO]  Creating uninstall script /usr/local/bin/k3s-uninstall.sh
+    [INFO]  env: Creating environment file /etc/systemd/system/k3s.service.env
+    [INFO]  systemd: Creating service file /etc/systemd/system/k3s.service
+    [INFO]  systemd: Enabling k3s unit
+    [INFO]  systemd: Starting k3s
+    root@k3s1:/opt# kubectl get node --show-labels
+    NAME   STATUS   ROLES                  AGE   VERSION        LABELS
+    k3s1   Ready    control-plane,master   13s   v1.20.5+k3s1   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/instance-type=k3s,beta.kubernetes.io/os=linux,foo=bar,kubernetes.io/arch=amd64,kubernetes.io/hostname=k3s1,kubernetes.io/os=linux,node-role.kubernetes.io/control-plane=true,node-role.kubernetes.io/master=true,node.kubernetes.io/instance-type=k3s,**something=amazing**
+    ```
