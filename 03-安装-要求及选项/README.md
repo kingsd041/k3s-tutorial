@@ -174,6 +174,7 @@ Created symlink /etc/systemd/system/multi-user.target.wants/k3s.service → /etc
 ```
 
 - INSTALL_K3S_SKIP_START -- 如果设置为 "true "将不会启动 K3s 服务。
+
 ```
 root@k3s1:~# curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn \
 >   INSTALL_K3S_SKIP_START=true \
@@ -197,22 +198,22 @@ root@k3s1:~# systemctl start k3s.service
 ```
 
 - INSTALL_K3S_VERSION -- 从 Github 下载 K3s 的版本。如果没有指定，将尝试从"stable"频道下载。
-```
-root@k3s1:~# curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn \
->   INSTALL_K3S_VERSION="v1.19.9+k3s1" \
->   sh -
-[INFO]  Using v1.19.9+k3s1 as release
-[INFO]  Downloading hash http://rancher-mirror.cnrancher.com/k3s/v1.19.9-k3s1/sha256sum-amd64.txt
-[INFO]  Downloading binary http://rancher-mirror.cnrancher.com/k3s/v1.19.9-k3s1/k3s
-[INFO]  Verifying binary download
-[INFO]  Installing k3s to /usr/local/bin/k3s
-[INFO]  Creating /usr/local/bin/kubectl symlink to k3s
-[INFO]  Creating /usr/local/bin/crictl symlink to k3s
-[INFO]  Creating /usr/local/bin/ctr symlink to k3s
-[INFO]  Creating killall script /usr/local/bin/k3s-killall.sh
-[INFO]  Creating uninstall script /usr/local/bin/k3s-uninstall.sh
-[INFO]  env: Creating environment file /etc/systemd/system/k3s.service.env
-[INFO]  systemd: Creating service file /etc/systemd/system/k3s.service
-[INFO]  systemd: Enabling k3s unit
-[INFO]  systemd: Starting k3s
-```
+    ```
+    root@k3s1:~# curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn \
+    >   INSTALL_K3S_VERSION="v1.19.9+k3s1" \
+    >   sh -
+    [INFO]  Using v1.19.9+k3s1 as release
+    [INFO]  Downloading hash http://rancher-mirror.cnrancher.com/k3s/v1.19.9-k3s1/sha256sum-amd64.txt
+    [INFO]  Downloading binary http://rancher-mirror.cnrancher.com/k3s/v1.19.9-k3s1/k3s
+    [INFO]  Verifying binary download
+    [INFO]  Installing k3s to /usr/local/bin/k3s
+    [INFO]  Creating /usr/local/bin/kubectl symlink to k3s
+    [INFO]  Creating /usr/local/bin/crictl symlink to k3s
+    [INFO]  Creating /usr/local/bin/ctr symlink to k3s
+    [INFO]  Creating killall script /usr/local/bin/k3s-killall.sh
+    [INFO]  Creating uninstall script /usr/local/bin/k3s-uninstall.sh
+    [INFO]  env: Creating environment file /etc/systemd/system/k3s.service.env
+    [INFO]  systemd: Creating service file /etc/systemd/system/k3s.service
+    [INFO]  systemd: Enabling k3s unit
+    [INFO]  systemd: Starting k3s
+    ```
