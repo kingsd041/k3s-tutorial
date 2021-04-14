@@ -196,6 +196,7 @@ K3s 的性能取决于数据库的性能。为了确保最佳速度，我们建�
     root@k3s1:~# systemctl start k3s.service
     ```
 
+
 - INSTALL_K3S_VERSION -- 从 Github 下载 K3s 的版本。如果没有指定，将尝试从"stable"频道下载。
     ```
     root@k3s1:~# curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn \
