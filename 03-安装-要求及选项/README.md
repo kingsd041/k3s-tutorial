@@ -455,6 +455,7 @@ K3s 的性能取决于数据库的性能。为了确保最佳速度，我们建�
 - `K3S_TOKEN` -- 用于将 server 或 agent 加入集群的共享 secret。
 
   ```
+  root@k3s1:~# curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn \
     K3S_TOKEN=rancher-k3s \
     sh -
   [INFO]  Finding release for channel stable
