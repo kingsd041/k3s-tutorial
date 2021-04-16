@@ -1,5 +1,16 @@
 # K3s Server/Agent 配置
 
+- write-kubeconfig -- 将管理客户端的 kubeconfig 写入这个文件
+
+  ```
+  root@k3s1:~# curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn \
+    K3S_KUBECONFIG_OUTPUT=/root/.kube/config \
+    sh -
+
+  root@k3s1:~# ls /root/.kube/config
+  /root/.kube/config
+  ```
+
 - 使用 docker 作为容器运行时
 
   ```
@@ -28,40 +39,52 @@
   - K3s server:
 
     ```
-    root@k3s1:~# curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | \
-    INSTALL_K3S_MIRROR=cn \
-    INSTALL_K3S_EXEC="--advertise-address=192.168.99.211 --node-ip=192.168.99.211" \
+    root@k3s1:~# curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn \
+    INSTALL_K3S_EXEC="--node-ip=192.168.99.211" \
     sh -
     ```
 
   - K3s agent:
     ```
-    root@k3s1:~# curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | \
-    INSTALL_K3S_MIRROR=cn \
+    root@k3s1:~# curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn \
     K3S_URL=https://192.168.99.211:6443 \
     K3S_TOKEN=9077b8e6f3b67b5f3e4a7723a96b199d \
     INSTALL_K3S_EXEC="--node-ip=192.168.99.212" \
     sh -
     ```
 
-  ```
-
-  ```
-
 - --tls-san -- 在 TLS 证书中添加其他主机名或 IP 作为主题备用名称
 
   ```
   root@k3s1:~# curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn \
-    INSTALL_K3S_EXEC="--tls-san 192.168.64.76"  \
-  sh -
+    INSTALL_K3S_EXEC="--tls-san 3.97.6.45"  \
+    sh -
   ```
 
 - 修改`kube-apiserver`、`kube-scheduler` 、`kube-controller-manager`、 `kube-cloud-controller-manager`、 `kubelet`、 `kube-proxy` 参数
 
+  - kubelet-arg
+
   ```
   root@k3s1:~# curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn \
     INSTALL_K3S_EXEC='--kubelet-arg=max-pods=200' \
-  sh -
+    sh -
+  ```
+
+  - kube-apiserver
+
+  ```
+  root@k3s1:~# curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn \
+    INSTALL_K3S_EXEC='--kube-apiserver-arg=service-node-port-range=40000-50000' \
+    sh -
+  ```
+
+  - kube-proxy-arg
+
+  ```
+  root@k3s1:~# curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn \
+    INSTALL_K3S_EXEC='--kube-proxy-arg=proxy-mode=ipvs' \
+    sh -
   ```
 
 - --data-dir -- K3s 数据存储目录，默认为 `/var/lib/rancher/k3s` 或 `${HOME}/.rancher/k3s`(如果不是 root 用户)
@@ -69,7 +92,7 @@
   ```
   root@k3s1:~# curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn \
     INSTALL_K3S_EXEC='--data-dir=/opt/k3s-data' \
-  sh -
+    sh -
 
   root@k3s1:~# ls /opt/k3s-data/
   agent  data  server
@@ -80,7 +103,7 @@
   ```
   root@k3s1:~# curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn \
     INSTALL_K3S_EXEC='--default-local-storage-path=/opt/storage' \
-  sh -
+    sh -
   ```
 
 - 禁用组件 --disable
@@ -88,7 +111,7 @@
   ```
   root@k3s1:~# curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn \
     INSTALL_K3S_EXEC='--disable traefik' \
-  sh -
+    sh -
 
   root@k3s1:~# ls /var/lib/rancher/k3s/server/manifests
   ccm.yaml  coredns.yaml  local-storage.yaml  metrics-server  rolebindings.yaml
@@ -101,5 +124,5 @@
   ```
   root@k3s1:~# curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn \
     INSTALL_K3S_EXEC='--node-label foo=bar,hello=world --node-taint key1=value1:NoExecute' \
-  sh -
+    sh -
   ```
