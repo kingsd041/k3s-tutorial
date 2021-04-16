@@ -98,14 +98,6 @@
   agent  data  server
   ```
 
-- --default-local-storage-path -- 本地存储类的默认存储路径
-
-  ```
-  root@k3s1:~# curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | INSTALL_K3S_MIRROR=cn \
-    INSTALL_K3S_EXEC='--default-local-storage-path=/opt/storage' \
-    sh -
-  ```
-
 - 禁用组件 --disable
 
   ```
