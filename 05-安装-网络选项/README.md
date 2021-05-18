@@ -67,11 +67,6 @@ EOF
 curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | \
         INSTALL_K3S_EXEC="--flannel-conf=/etc/net-conf.json" \
         INSTALL_K3S_MIRROR=cn sh -
-
-# K3s agent
-curl -sfL http://rancher-mirror.cnrancher.com/k3s/k3s-install.sh | \
-        INSTALL_K3S_MIRROR=cn K3S_URL=https://172.16.64.6:6443 K3S_TOKEN=9cbd58d3a236b831764f3d139cf5b9a4 sh -
-
 ```
 
 ## 自定义 CNI
