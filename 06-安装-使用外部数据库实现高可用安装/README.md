@@ -138,3 +138,5 @@ k3s-server-2   Ready    control-plane,master   66s   v1.20.7+k3s1
 ```
 
 ## 其他
+
+如何在阿里云上搭建 K3s HA，可参考[这应该是最适合国内用户的 K3s HA 方案](https://mp.weixin.qq.com/s/0Wk2MzfWqMqt8DfUK_2ICA)
