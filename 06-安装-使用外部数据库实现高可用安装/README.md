@@ -1,10 +1,8 @@
-# K3s 高可用安装
-
-## K3s 安装 - 使用外部数据库实现高可用安装
+# K3s 安装 - 使用外部数据库实现高可用安装
 
 本节介绍了如何使用外部数据库安装一个高可用的 K3s 集群。
 
-#### 要求
+## 要求
 
 单节点 k3s server 集群可以满足各种用例，但是对于需要 Kubernetes control-plane 稳定运行的重要环境，您可以在 HA 配置中运行 K3s。一个 K3s HA 集群由以下几个部分组成：
 
@@ -15,11 +13,11 @@
 
 > Agent 通过固定的注册地址进行注册，但注册后直接与其中一个 server 节点建立连接。这是一个由 k3s agent 进程发起的 websocket 连接，并由作为 agent 进程一部分运行的客户端负载均衡器维护。
 
-#### 架构
+## 架构
 
 ![](http://docs.rancher.cn/assets/images/k3s-architecture-ha-server-46bf4c38e210246bda5920127bbecd53.png)
 
-#### 安装
+## 安装
 
 0. 环境介绍
    主机名 | 角色 | IP
@@ -139,32 +137,4 @@ k3s-server-1   Ready    control-plane,master   68s   v1.20.7+k3s1
 k3s-server-2   Ready    control-plane,master   66s   v1.20.7+k3s1
 ```
 
-#### 其他
-
-如何在阿里云上搭建 K3s HA，可参考[这应该是最适合国内用户的 K3s HA 方案](https://mp.weixin.qq.com/s/0Wk2MzfWqMqt8DfUK_2ICA)
-
-## 嵌入式 DB 的高可用
-
-要在这种模式下运行 K3s，你必须有奇数的服务器节点。我们建议从三个节点开始。
-
-要开始运行，首先启动一个服务器节点，使用 cluster-init 标志来启用集群，并使用一个标记作为共享的密钥来加入其他服务器到集群中。
-
-```
-K3S_TOKEN=SECRET k3s server --cluster-init
-或：
-curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET sh -s - --cluster-init
-```
-
-启动第一台服务器后，使用共享密钥将第二台和第三台服务器加入集群。
-
-```
-K3S_TOKEN=SECRET k3s server --server https://<ip or hostname of server1>:6443。
-或:
-curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET sh -s - --server https://<ip or hostname of server1>:6443
-```
-
-查询 ETCD 集群状态：
-
-```
-ETCDCTL_ENDPOINTS='https://172.31.12.136:2379,https://172.31.4.43:2379,https://172.31.4.190:2379' ETCDCTL_CACERT='/var/lib/rancher/k3s/server/tls/etcd/server-ca.crt' ETCDCTL_CERT='/var/lib/rancher/k3s/server/tls/etcd/server-client.crt' ETCDCTL_KEY='/var/lib/rancher/k3s/server/tls/etcd/server-client.key' ETCDCTL_API=3 etcdctl endpoint status --write-out=table
-```
+## 其他
