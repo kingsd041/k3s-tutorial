@@ -1,6 +1,6 @@
 # 私有镜像仓库配置参考
 
-K3s 默认使用 containerd 作为默认容器运行时，所以在 docker 上配置镜像仓库是不生效的
+K3s 默认使用 containerd 作为容器运行时，所以在 docker 上配置镜像仓库是不生效的
 
 K3s registry 配置目录为： `/etc/rancher/k3s/registries.yaml`。K3s 启动时，K3s 会检查 `/etc/rancher/k3s/` 中是否存在 `registries.yaml` 文件，并指示 containerd 使用文件中定义的镜像仓库。如果你想使用一个私有的镜像仓库，那么你需要在每个使用镜像仓库的节点上以 root 身份创建这个文件。
 
@@ -23,15 +23,23 @@ mirrors:
       - "http://172.31.6.200:5000"
       - "http://x.x.x.x:5000"
       - "http://y.y.y.y:5000"
-
   "rancher.ksd.top:5000":
     endpoint:
       - "http://172.31.6.200:5000"
-      
   "docker.io":
     endpoint:
       - "https://fogjl973.mirror.aliyuncs.com"
       - "https://registry-1.docker.io"
+
+configs:
+  "harbor2.kingsd.top":
+    auth:
+      username: admin
+      password: Harbor@12345
+    tls:
+      cert_file: /home/ubuntu/harbor2.kingsd.top.cert
+      key_file:  /home/ubuntu/harbor2.kingsd.top.key
+      ca_file:   /home/ubuntu/ca.crt
 ```
 
 可以通过 `crictl pull 172.31.6.200:5000/library/alpine` 和 `crictl pull rancher.ksd.top:5000/library/alpine` 获取到镜像，但镜像都是从同一个仓库获取到的。
