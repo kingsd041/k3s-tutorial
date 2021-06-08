@@ -32,7 +32,7 @@ mirrors:
       - "https://registry-1.docker.io"
 
 configs:
-  "harbor2.kingsd.top":
+  "172.31.6.200:5000":
     auth:
       username: admin
       password: Harbor@12345
