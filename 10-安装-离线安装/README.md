@@ -1,4 +1,4 @@
-# 离线安装
+# K3s 离线安装
 
 ## 概述
 
@@ -10,7 +10,7 @@
 
 **离线升级 K3s 版本**：完成离线安装 K3s 后，您还可以通过脚本升级 K3s 版本，或启用自动升级功能，以保持离线环境中的 K3s 版本与最新的 K3s 版本同步。
 
-## 通过私有镜像仓库安装K3s
+## 通过私有镜像仓库安装 K3s
 
 #### 将所需镜像上传到私有镜像仓库
 
@@ -35,8 +35,7 @@ configs:
 EOF
 ```
 
-#### 安装单节点K3s
-
+#### 安装单节点 K3s
 
 1. 从[K3s GitHub Release](https://github.com/rancher/k3s/releases)页面获取 K3s 二进制文件，K3s 二进制文件需要与离线镜像的版本匹配。
 
@@ -44,17 +43,19 @@ EOF
 
 3. 将二进制文件放在每个节点的`/usr/local/bin`中，并确保拥有可执行权限。将安装脚本放在每个节点的任意位置，并将其命名为`install.sh`。
 
-4. 安装K3s server：
+4. 安装 K3s server：
+
 ```
 INSTALL_K3S_SKIP_DOWNLOAD=true ./install.sh
 ```
 
-5. 将agent加入到K3s集群
+5. 将 agent 加入到 K3s 集群
+
 ```
 INSTALL_K3S_SKIP_DOWNLOAD=true K3S_URL=https://myserver:6443 K3S_TOKEN=mynodetoken ./install.sh
 ```
 
-## 通过手动部署镜像安装K3s
+## 通过手动部署镜像安装 K3s
 
 请按照以下步骤准备镜像和 K3s 二进制文件：
 
@@ -67,26 +68,27 @@ sudo mkdir -p /var/lib/rancher/k3s/agent/images/
 sudo cp ./k3s-airgap-images-$ARCH.tar /var/lib/rancher/k3s/agent/images/
 ```
 
-3. 将 k3s 二进制文件放在 `/usr/local/bin/k3s`路径想，并确保拥有可执行权限。
+3. 将 k3s 二进制文件放在 `/usr/local/bin/k3s`路径上，并确保拥有可执行权限。
 
-4. 安装K3s server：
+4. 安装 K3s server：
+
 ```
 INSTALL_K3S_SKIP_DOWNLOAD=true ./install.sh
 ```
 
-5. 将agent加入到K3s集群
+5. 将 agent 加入到 K3s 集群
+
 ```
 INSTALL_K3S_SKIP_DOWNLOAD=true K3S_URL=https://myserver:6443 K3S_TOKEN=mynodetoken ./install.sh
 ```
 
 ## 高可用安装
 
-指定`INSTALL_K3S_SKIP_DOWNLOAD=true`参数指定使用本地K3s二进制文件进行安装。
+指定`INSTALL_K3S_SKIP_DOWNLOAD=true`参数指定使用本地 K3s 二进制文件进行安装。
 
 ```
 INSTALL_K3S_SKIP_DOWNLOAD=true INSTALL_K3S_EXEC='server --datastore-endpoint=mysql://username:password@tcp(hostname:3306)/database-name' ./install.sh
 ```
-
 
 ## 升级 K3s
 
