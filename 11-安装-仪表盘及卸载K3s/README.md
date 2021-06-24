@@ -6,11 +6,11 @@
 - Rancher UI
 - kube-explorer
 
-### Kubernetes Dashboard
+## 1. Kubernetes Dashboard
 
 参考 [K3s 官网](http://docs.rancher.cn/docs/k3s/installation/kube-dashboard/_index/)
 
-### kube-explorer
+## 2. kube-explorer
 
 项目地址：https://github.com/cnrancher/kube-explorer
 
@@ -29,7 +29,7 @@ kube-explorer 是 Kubernetes 的便携式资源管理器，没有任何依赖。
 
 然后，打开浏览器访问 http://x.x.x.x:9898
 
-### Rancher UI
+## 3. Rancher UI
 
 可以将K3s导入到Rancher UI中去管理，参考 [Rancher 官网](http://docs.rancher.cn/docs/rancher2/cluster-provisioning/imported-clusters/_index/#%E5%AF%BC%E5%85%A5-k3s-%E9%9B%86%E7%BE%A4)
 
