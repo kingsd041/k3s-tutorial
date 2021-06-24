@@ -42,16 +42,17 @@ kube-explorer 是 Kubernetes 的便携式资源管理器，没有任何依赖。
 
 # 卸载K3S
 
-## 卸载 K3s server 和 K3s agent
+要从 server 节点卸载 K3s，请运行：
 ```
-# k3s server
-k3s-uninstall.sh
+/usr/local/bin/k3s-uninstall.sh
+```
+要从 agent 节点卸载 K3s，请运行：
 
-# k3s agent
- k3s-agent-uninstall.sh
+```
+/usr/local/bin/k3s-agent-uninstall.sh
 ```
 
-## 使用docker作为默认容器运行时
+#### 使用docker作为默认容器运行时
 
 参考：Rancher [官网](http://docs.rancher.cn/docs/rancher2.5/cluster-admin/cleaning-cluster-nodes/_index/#%E6%B8%85%E7%90%86%E8%84%9A%E6%9C%AC)
 
