@@ -66,7 +66,7 @@ sqlite> .exit
 
 恢复mysql数据
 ```
-mysql -uroot -p  < /opt/k3s-dbdump.db
+mysql -uroot -p  < k3s-dbdump.db
 ```
 
 启动K3s服务
