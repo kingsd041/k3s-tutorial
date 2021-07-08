@@ -54,7 +54,7 @@ sqlite> .exit
 - 备份
 
 ```
-# mysql -uroot -p  < /opt/k3s-dbdump.db
+# mysqldump -uroot -p --all-databases --master-data > k3s-dbdump.db
 ```
 
 - 恢复
