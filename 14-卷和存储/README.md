@@ -8,7 +8,7 @@
 
 K3s 自带 Rancher 的 Local Path Provisioner，这使得能够使用各自节点上的本地存储来开箱即用地创建 pvc。
 
-Local Path Provisioner 为 Kubernetes/K3s 用户提供了一种利用每个节点中的本地存储的方法。根据用户配置，Local Path Provisioner 将自动在节点上创建基于 hostPath 的持久卷。它利用了 Kubernetes Local Persistent Volume 特性引入的特性，但他比 Kubernetes 中内置的 `local` 卷特性更简单的解决方案。
+Local Path Provisioner 为 Kubernetes/K3s 用户提供了一种利用每个节点中的本地存储的方法。根据用户配置，Local Path Provisioner 将自动在节点上创建基于 hostPath 的持久卷。它利用了 Kubernetes Local Persistent Volume 特性引入的特性，但他比 Kubernetes 中内置的 `local pv` 特性更简单的解决方案。
 
 **pvc.yaml**
 
