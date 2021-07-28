@@ -18,7 +18,7 @@ CoreDNS 是在 agent 节点启动时部署的。要禁用，请在每台服务�
 
 1. 将`coredns.yaml`保存到其他目录
 2. 通过 `--disable coredns` 禁用 coredns
-3. 将备份的`coredns.yaml` 复制到 `/var/lib/rancher/k3s/server/manifests/`，并修改
+3. 将备份的`coredns.yaml` 复制到 `/var/lib/rancher/k3s/server/manifests/`，并修改对应参数
 
 ## Traefik Ingress Controller
 
@@ -42,10 +42,10 @@ kind: Secret
 metadata:
   name: authsecret
   namespace: default
-
 data:
   users: |2
     dGVzdDokYXByMSRINnVza2trVyRJZ1hMUDZld1RyU3VCa1RycUU4d2ovCnRlc3QyOiRhcHIxJGQ5aHI5SEJCJDRIeHdnVWlyM0hQNEVzZ2dQL1FObzAK
+---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
