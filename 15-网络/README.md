@@ -72,6 +72,7 @@ spec:
 然后通过 http://traefik.example.com/dashboard/ 访问 traefik dashboard
 
 参考：
+
 https://doc.traefik.io/traefik/operations/dashboard/
 
 https://doc.traefik.io/traefik/middlewares/basicauth/#general
